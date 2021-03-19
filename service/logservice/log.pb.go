@@ -214,13 +214,13 @@ var file_log_proto_rawDesc = []byte{
 	0x46, 0x4f, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07, 0x57, 0x41, 0x52, 0x4e, 0x49, 0x4e, 0x47, 0x10,
 	0x01, 0x12, 0x09, 0x0a, 0x05, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05,
 	0x46, 0x41, 0x54, 0x41, 0x4c, 0x10, 0x03, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79,
-	0x32, 0x39, 0x0a, 0x0a, 0x4c, 0x6f, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2b,
-	0x0a, 0x06, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x12, 0x11, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x4c, 0x6f, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00, 0x42, 0x20, 0x5a, 0x1e, 0x2f,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x3b, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x32, 0x36, 0x0a, 0x0a, 0x4c, 0x6f, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x28,
+	0x0a, 0x03, 0x4c, 0x6f, 0x67, 0x12, 0x11, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x6f,
+	0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00, 0x42, 0x20, 0x5a, 0x1e, 0x2f, 0x73, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x2f, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3b,
+	0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -244,8 +244,8 @@ var file_log_proto_goTypes = []interface{}{
 }
 var file_log_proto_depIdxs = []int32{
 	0, // 0: proto.LogRequest.log_level:type_name -> proto.LogRequest.Level
-	1, // 1: proto.LogService.Search:input_type -> proto.LogRequest
-	2, // 2: proto.LogService.Search:output_type -> proto.Empty
+	1, // 1: proto.LogService.Log:input_type -> proto.LogRequest
+	2, // 2: proto.LogService.Log:output_type -> proto.Empty
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -317,7 +317,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LogServiceClient interface {
-	Search(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*Empty, error)
+	Log(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type logServiceClient struct {
@@ -328,9 +328,9 @@ func NewLogServiceClient(cc grpc.ClientConnInterface) LogServiceClient {
 	return &logServiceClient{cc}
 }
 
-func (c *logServiceClient) Search(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *logServiceClient) Log(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/proto.LogService/Search", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.LogService/Log", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -339,35 +339,35 @@ func (c *logServiceClient) Search(ctx context.Context, in *LogRequest, opts ...g
 
 // LogServiceServer is the server API for LogService service.
 type LogServiceServer interface {
-	Search(context.Context, *LogRequest) (*Empty, error)
+	Log(context.Context, *LogRequest) (*Empty, error)
 }
 
 // UnimplementedLogServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedLogServiceServer struct {
 }
 
-func (*UnimplementedLogServiceServer) Search(context.Context, *LogRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
+func (*UnimplementedLogServiceServer) Log(context.Context, *LogRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Log not implemented")
 }
 
 func RegisterLogServiceServer(s *grpc.Server, srv LogServiceServer) {
 	s.RegisterService(&_LogService_serviceDesc, srv)
 }
 
-func _LogService_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LogService_Log_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LogRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LogServiceServer).Search(ctx, in)
+		return srv.(LogServiceServer).Log(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.LogService/Search",
+		FullMethod: "/proto.LogService/Log",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LogServiceServer).Search(ctx, req.(*LogRequest))
+		return srv.(LogServiceServer).Log(ctx, req.(*LogRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -377,8 +377,8 @@ var _LogService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*LogServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Search",
-			Handler:    _LogService_Search_Handler,
+			MethodName: "Log",
+			Handler:    _LogService_Log_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

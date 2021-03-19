@@ -3,7 +3,7 @@ syntax = "proto3";
 package proto;
 
 service LogService {
-    rpc Search(LogRequest) returns (Empty) {}
+    rpc Log(LogRequest) returns (Empty) {}
 }
 message LogRequest {
     bytes operator = 1;

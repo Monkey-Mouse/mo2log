@@ -1,4 +1,4 @@
-package mo2log
+package main
 
 import (
 	"context"
@@ -27,8 +27,6 @@ func init() {
 	db := client.Database(os.Getenv("MO2_DATABASE"))
 	col = db.Collection(os.Getenv("LOG_COL"))
 }
-func logMessage() {
-}
 
 type LogModel struct {
 	ID                primitive.ObjectID `bson:"_id,omitempty"`
@@ -43,7 +41,7 @@ type LogModel struct {
 type server struct {
 }
 
-func (*server) Search(ctx context.Context, req *logservice.LogRequest) (emp *logservice.Empty, err error) {
+func (*server) Log(ctx context.Context, req *logservice.LogRequest) (emp *logservice.Empty, err error) {
 	model := LogModel{
 		ID:                primitive.NewObjectID(),
 		OperatorID:        helpers.BytesToMongoID(req.Operator),
