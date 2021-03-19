@@ -30,41 +30,47 @@ func init() {
 }
 
 type LogModel struct {
-	ID                primitive.ObjectID `bson:"_id,omitempty"`
-	OperatorID        primitive.ObjectID `bson:"operator_id,omitempty"`
-	Operation         int32              `bson:"operation,omitempty"`
-	OperationTargetID primitive.ObjectID `bson:"operation_target_id,omitempty"`
-	LogLevel          int32              `bson:"log_level,omitempty"`
-	ExtraMessage      string             `bson:"extra_message,omitempty"`
-	CreateTime        time.Time          `bson:"create_time,omitempty"`
-	UpdateTime        time.Time          `bson:"update_time,omitempty"`
+	ID                     primitive.ObjectID `bson:"_id,omitempty"`
+	OperatorID             primitive.ObjectID `bson:"operator_id,omitempty"`
+	Operation              int32              `bson:"operation,omitempty"`
+	OperationTargetID      primitive.ObjectID `bson:"operation_target_id,omitempty"`
+	LogLevel               int32              `bson:"log_level,omitempty"`
+	ExtraMessage           string             `bson:"extra_message,omitempty"`
+	CreateTime             time.Time          `bson:"create_time,omitempty"`
+	UpdateTime             time.Time          `bson:"update_time,omitempty"`
+	OperationTargetOwnerID primitive.ObjectID `bson:"operation_target_owner_id,omitempty"`
+	Processed              bool               `bson:"processed,omitempty"`
 }
 type server struct {
 }
 
 func (*server) Log(ctx context.Context, req *logservice.LogModel) (emp *logservice.Empty, err error) {
 	model := LogModel{
-		ID:                primitive.NewObjectID(),
-		OperatorID:        helpers.BytesToMongoID(req.Operator),
-		Operation:         req.Operation,
-		OperationTargetID: helpers.BytesToMongoID(req.OperationTarget),
-		LogLevel:          int32(req.LogLevel),
-		ExtraMessage:      req.ExtraMessage,
-		CreateTime:        time.Now(),
-		UpdateTime:        time.Now(),
+		ID:                     primitive.NewObjectID(),
+		OperatorID:             helpers.BytesToMongoID(req.Operator),
+		Operation:              req.Operation,
+		OperationTargetID:      helpers.BytesToMongoID(req.OperationTarget),
+		LogLevel:               int32(req.LogLevel),
+		ExtraMessage:           req.ExtraMessage,
+		CreateTime:             time.Now(),
+		UpdateTime:             time.Now(),
+		OperationTargetOwnerID: helpers.BytesToMongoID(req.OperationTargetOwner),
+		Processed:              false,
 	}
 	col.InsertOne(ctx, model)
 	return
 }
 func model2Proto(log *LogModel) *logservice.LogModel {
 	return &logservice.LogModel{
-		Operator:        log.OperatorID[:],
-		Operation:       log.Operation,
-		OperationTarget: log.OperationTargetID[:],
-		LogLevel:        logservice.LogModel_Level(log.LogLevel),
-		ExtraMessage:    log.ExtraMessage,
-		CreateTime:      log.CreateTime.UnixNano(),
-		UpdateTime:      log.UpdateTime.UnixNano(),
+		Operator:             log.OperatorID[:],
+		Operation:            log.Operation,
+		OperationTarget:      log.OperationTargetID[:],
+		LogLevel:             logservice.LogModel_Level(log.LogLevel),
+		ExtraMessage:         log.ExtraMessage,
+		OperationTargetOwner: log.OperationTargetOwnerID[:],
+		CreateTime:           log.CreateTime.UnixNano(),
+		UpdateTime:           log.UpdateTime.UnixNano(),
+		Processed:            log.Processed,
 	}
 }
 func (*server) Exist(ctx context.Context,
@@ -76,6 +82,28 @@ func (*server) Exist(ctx context.Context,
 		"operation_target_id": req.OperationTarget}).Decode(m)
 	model = model2Proto(m)
 
+	return
+}
+
+func (*server) GetUserMsgs(ctx context.Context, req *logservice.ListRequest) (arr *logservice.LogArray, err error) {
+	cur, err := col.Find(ctx, bson.M{"operation_target_owner_id": req.UserId},
+		options.Find().SetSkip(int64(req.Page)*int64(req.Pagesize)).SetLimit(int64(req.Pagesize)).SetSort(bson.M{"update_time": -1}))
+	if err != nil {
+		return nil, err
+	}
+	log := &LogModel{}
+	logs := make([]*logservice.LogModel, 0, req.Pagesize)
+	for {
+		err = cur.Decode(log)
+		if err != nil {
+			return nil, err
+		}
+		logs = append(logs, model2Proto(log))
+		if !cur.TryNext(ctx) {
+			break
+		}
+	}
+	arr.Logs = logs
 	return
 }
 
