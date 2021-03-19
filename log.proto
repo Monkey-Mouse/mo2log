@@ -6,11 +6,18 @@ service LogService {
     rpc Log(LogModel) returns (Empty) {}
     rpc Exist(ExtRequest) returns (LogModel){}
     rpc GetUserMsgs(ListRequest) returns (LogArray){}
+    rpc GetUserNewMsgNum (UserID) returns (Num);
 }
 message ExtRequest {
     bytes operator = 1;
     int32 operation = 2;
     bytes operation_target = 3;
+}
+message Num {
+    int64 num = 1;
+}
+message UserID {
+    int32 user_id = 1;
 }
 message ListRequest {
     bytes user_id = 1;
