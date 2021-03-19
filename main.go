@@ -42,7 +42,7 @@ type LogModel struct {
 type server struct {
 }
 
-func (*server) Log(ctx context.Context, req *logservice.LogRequest) (emp *logservice.Empty, err error) {
+func (*server) Log(ctx context.Context, req *logservice.LogModel) (emp *logservice.Empty, err error) {
 	model := LogModel{
 		ID:                primitive.NewObjectID(),
 		OperatorID:        helpers.BytesToMongoID(req.Operator),
@@ -56,21 +56,25 @@ func (*server) Log(ctx context.Context, req *logservice.LogRequest) (emp *logser
 	col.InsertOne(ctx, model)
 	return
 }
+func model2Proto(log *LogModel) *logservice.LogModel {
+	return &logservice.LogModel{
+		Operator:        log.OperatorID[:],
+		Operation:       log.Operation,
+		OperationTarget: log.OperationTargetID[:],
+		LogLevel:        logservice.LogModel_Level(log.LogLevel),
+		ExtraMessage:    log.ExtraMessage,
+		CreateTime:      log.CreateTime.UnixNano(),
+		UpdateTime:      log.UpdateTime.UnixNano(),
+	}
+}
 func (*server) Exist(ctx context.Context,
-	req *logservice.ExtRequest) (ext *logservice.ExtResult, err error) {
-	e := col.FindOne(ctx, bson.M{
+	req *logservice.ExtRequest) (model *logservice.LogModel, err error) {
+	m := &LogModel{}
+	err = col.FindOne(ctx, bson.M{
 		"operator_id":         req.Operator,
 		"operation":           req.Operation,
-		"operation_target_id": req.OperationTarget}).Err()
-	ext.IsExist = true
-	if e != nil {
-		// ErrNoDocuments means that the filter did not match any documents in the collection
-		if e == mongo.ErrNoDocuments {
-			ext.IsExist = false
-			return
-		}
-		err = e
-	}
+		"operation_target_id": req.OperationTarget}).Decode(m)
+	model = model2Proto(m)
 
 	return
 }

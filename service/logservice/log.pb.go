@@ -24,24 +24,24 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type LogRequest_Level int32
+type LogModel_Level int32
 
 const (
-	LogRequest_INFO    LogRequest_Level = 0
-	LogRequest_WARNING LogRequest_Level = 1
-	LogRequest_ERROR   LogRequest_Level = 2
-	LogRequest_FATAL   LogRequest_Level = 3
+	LogModel_INFO    LogModel_Level = 0
+	LogModel_WARNING LogModel_Level = 1
+	LogModel_ERROR   LogModel_Level = 2
+	LogModel_FATAL   LogModel_Level = 3
 )
 
-// Enum value maps for LogRequest_Level.
+// Enum value maps for LogModel_Level.
 var (
-	LogRequest_Level_name = map[int32]string{
+	LogModel_Level_name = map[int32]string{
 		0: "INFO",
 		1: "WARNING",
 		2: "ERROR",
 		3: "FATAL",
 	}
-	LogRequest_Level_value = map[string]int32{
+	LogModel_Level_value = map[string]int32{
 		"INFO":    0,
 		"WARNING": 1,
 		"ERROR":   2,
@@ -49,31 +49,31 @@ var (
 	}
 )
 
-func (x LogRequest_Level) Enum() *LogRequest_Level {
-	p := new(LogRequest_Level)
+func (x LogModel_Level) Enum() *LogModel_Level {
+	p := new(LogModel_Level)
 	*p = x
 	return p
 }
 
-func (x LogRequest_Level) String() string {
+func (x LogModel_Level) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (LogRequest_Level) Descriptor() protoreflect.EnumDescriptor {
+func (LogModel_Level) Descriptor() protoreflect.EnumDescriptor {
 	return file_log_proto_enumTypes[0].Descriptor()
 }
 
-func (LogRequest_Level) Type() protoreflect.EnumType {
+func (LogModel_Level) Type() protoreflect.EnumType {
 	return &file_log_proto_enumTypes[0]
 }
 
-func (x LogRequest_Level) Number() protoreflect.EnumNumber {
+func (x LogModel_Level) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use LogRequest_Level.Descriptor instead.
-func (LogRequest_Level) EnumDescriptor() ([]byte, []int) {
-	return file_log_proto_rawDescGZIP(), []int{2, 0}
+// Deprecated: Use LogModel_Level.Descriptor instead.
+func (LogModel_Level) EnumDescriptor() ([]byte, []int) {
+	return file_log_proto_rawDescGZIP(), []int{1, 0}
 }
 
 type ExtRequest struct {
@@ -139,16 +139,22 @@ func (x *ExtRequest) GetOperationTarget() []byte {
 	return nil
 }
 
-type ExtResult struct {
+type LogModel struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	IsExist bool `protobuf:"varint,1,opt,name=is_exist,json=isExist,proto3" json:"is_exist,omitempty"`
+	Operator        []byte         `protobuf:"bytes,1,opt,name=operator,proto3" json:"operator,omitempty"`
+	Operation       int32          `protobuf:"varint,2,opt,name=operation,proto3" json:"operation,omitempty"`
+	OperationTarget []byte         `protobuf:"bytes,3,opt,name=operation_target,json=operationTarget,proto3" json:"operation_target,omitempty"`
+	LogLevel        LogModel_Level `protobuf:"varint,4,opt,name=log_level,json=logLevel,proto3,enum=proto.LogModel_Level" json:"log_level,omitempty"`
+	ExtraMessage    string         `protobuf:"bytes,5,opt,name=extra_message,json=extraMessage,proto3" json:"extra_message,omitempty"`
+	CreateTime      int64          `protobuf:"varint,6,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
+	UpdateTime      int64          `protobuf:"varint,7,opt,name=update_time,json=updateTime,proto3" json:"update_time,omitempty"`
 }
 
-func (x *ExtResult) Reset() {
-	*x = ExtResult{}
+func (x *LogModel) Reset() {
+	*x = LogModel{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_log_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -156,13 +162,13 @@ func (x *ExtResult) Reset() {
 	}
 }
 
-func (x *ExtResult) String() string {
+func (x *LogModel) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ExtResult) ProtoMessage() {}
+func (*LogModel) ProtoMessage() {}
 
-func (x *ExtResult) ProtoReflect() protoreflect.Message {
+func (x *LogModel) ProtoReflect() protoreflect.Message {
 	mi := &file_log_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -174,95 +180,58 @@ func (x *ExtResult) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExtResult.ProtoReflect.Descriptor instead.
-func (*ExtResult) Descriptor() ([]byte, []int) {
+// Deprecated: Use LogModel.ProtoReflect.Descriptor instead.
+func (*LogModel) Descriptor() ([]byte, []int) {
 	return file_log_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *ExtResult) GetIsExist() bool {
-	if x != nil {
-		return x.IsExist
-	}
-	return false
-}
-
-type LogRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Operator        []byte           `protobuf:"bytes,1,opt,name=operator,proto3" json:"operator,omitempty"`
-	Operation       int32            `protobuf:"varint,2,opt,name=operation,proto3" json:"operation,omitempty"`
-	OperationTarget []byte           `protobuf:"bytes,3,opt,name=operation_target,json=operationTarget,proto3" json:"operation_target,omitempty"`
-	LogLevel        LogRequest_Level `protobuf:"varint,4,opt,name=log_level,json=logLevel,proto3,enum=proto.LogRequest_Level" json:"log_level,omitempty"`
-	ExtraMessage    string           `protobuf:"bytes,5,opt,name=extra_message,json=extraMessage,proto3" json:"extra_message,omitempty"`
-}
-
-func (x *LogRequest) Reset() {
-	*x = LogRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_log_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *LogRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*LogRequest) ProtoMessage() {}
-
-func (x *LogRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_log_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use LogRequest.ProtoReflect.Descriptor instead.
-func (*LogRequest) Descriptor() ([]byte, []int) {
-	return file_log_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *LogRequest) GetOperator() []byte {
+func (x *LogModel) GetOperator() []byte {
 	if x != nil {
 		return x.Operator
 	}
 	return nil
 }
 
-func (x *LogRequest) GetOperation() int32 {
+func (x *LogModel) GetOperation() int32 {
 	if x != nil {
 		return x.Operation
 	}
 	return 0
 }
 
-func (x *LogRequest) GetOperationTarget() []byte {
+func (x *LogModel) GetOperationTarget() []byte {
 	if x != nil {
 		return x.OperationTarget
 	}
 	return nil
 }
 
-func (x *LogRequest) GetLogLevel() LogRequest_Level {
+func (x *LogModel) GetLogLevel() LogModel_Level {
 	if x != nil {
 		return x.LogLevel
 	}
-	return LogRequest_INFO
+	return LogModel_INFO
 }
 
-func (x *LogRequest) GetExtraMessage() string {
+func (x *LogModel) GetExtraMessage() string {
 	if x != nil {
 		return x.ExtraMessage
 	}
 	return ""
+}
+
+func (x *LogModel) GetCreateTime() int64 {
+	if x != nil {
+		return x.CreateTime
+	}
+	return 0
+}
+
+func (x *LogModel) GetUpdateTime() int64 {
+	if x != nil {
+		return x.UpdateTime
+	}
+	return 0
 }
 
 type Empty struct {
@@ -274,7 +243,7 @@ type Empty struct {
 func (x *Empty) Reset() {
 	*x = Empty{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_log_proto_msgTypes[3]
+		mi := &file_log_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -287,7 +256,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_log_proto_msgTypes[3]
+	mi := &file_log_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -300,7 +269,7 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_log_proto_rawDescGZIP(), []int{3}
+	return file_log_proto_rawDescGZIP(), []int{2}
 }
 
 var File_log_proto protoreflect.FileDescriptor
@@ -314,35 +283,36 @@ var file_log_proto_rawDesc = []byte{
 	0x09, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x29, 0x0a, 0x10, 0x6f, 0x70,
 	0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x18, 0x03,
 	0x20, 0x01, 0x28, 0x0c, 0x52, 0x0f, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54,
-	0x61, 0x72, 0x67, 0x65, 0x74, 0x22, 0x26, 0x0a, 0x09, 0x45, 0x78, 0x74, 0x52, 0x65, 0x73, 0x75,
-	0x6c, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x69, 0x73, 0x5f, 0x65, 0x78, 0x69, 0x73, 0x74, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x69, 0x73, 0x45, 0x78, 0x69, 0x73, 0x74, 0x22, 0x82, 0x02,
-	0x0a, 0x0a, 0x4c, 0x6f, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08,
-	0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x08,
-	0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x1c, 0x0a, 0x09, 0x6f, 0x70, 0x65, 0x72,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x6f, 0x70, 0x65,
-	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x29, 0x0a, 0x10, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x5f, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c,
-	0x52, 0x0f, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x61, 0x72, 0x67, 0x65,
-	0x74, 0x12, 0x34, 0x0a, 0x09, 0x6c, 0x6f, 0x67, 0x5f, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x18, 0x04,
-	0x20, 0x01, 0x28, 0x0e, 0x32, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x6f, 0x67,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x52, 0x08, 0x6c,
-	0x6f, 0x67, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x12, 0x23, 0x0a, 0x0d, 0x65, 0x78, 0x74, 0x72, 0x61,
-	0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c,
-	0x65, 0x78, 0x74, 0x72, 0x61, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x34, 0x0a, 0x05,
-	0x4c, 0x65, 0x76, 0x65, 0x6c, 0x12, 0x08, 0x0a, 0x04, 0x49, 0x4e, 0x46, 0x4f, 0x10, 0x00, 0x12,
-	0x0b, 0x0a, 0x07, 0x57, 0x41, 0x52, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05,
-	0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x46, 0x41, 0x54, 0x41, 0x4c,
-	0x10, 0x03, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0x66, 0x0a, 0x0a, 0x4c,
-	0x6f, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x28, 0x0a, 0x03, 0x4c, 0x6f, 0x67,
-	0x12, 0x11, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x6f, 0x67, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x45, 0x6d, 0x70, 0x74,
-	0x79, 0x22, 0x00, 0x12, 0x2e, 0x0a, 0x05, 0x45, 0x78, 0x69, 0x73, 0x74, 0x12, 0x11, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x45, 0x78, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x10, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x45, 0x78, 0x74, 0x52, 0x65, 0x73, 0x75, 0x6c,
-	0x74, 0x22, 0x00, 0x42, 0x20, 0x5a, 0x1e, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f,
-	0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3b, 0x6c, 0x6f, 0x67, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x72, 0x67, 0x65, 0x74, 0x22, 0xc0, 0x02, 0x0a, 0x08, 0x4c, 0x6f, 0x67, 0x4d, 0x6f, 0x64,
+	0x65, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0c, 0x52, 0x08, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x1c,
+	0x0a, 0x09, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x09, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x29, 0x0a, 0x10,
+	0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x0f, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x54, 0x61, 0x72, 0x67, 0x65, 0x74, 0x12, 0x32, 0x0a, 0x09, 0x6c, 0x6f, 0x67, 0x5f, 0x6c,
+	0x65, 0x76, 0x65, 0x6c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x15, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x4c, 0x6f, 0x67, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x4c, 0x65, 0x76, 0x65,
+	0x6c, 0x52, 0x08, 0x6c, 0x6f, 0x67, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x12, 0x23, 0x0a, 0x0d, 0x65,
+	0x78, 0x74, 0x72, 0x61, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0c, 0x65, 0x78, 0x74, 0x72, 0x61, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18,
+	0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d,
+	0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65,
+	0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x69,
+	0x6d, 0x65, 0x22, 0x34, 0x0a, 0x05, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x12, 0x08, 0x0a, 0x04, 0x49,
+	0x4e, 0x46, 0x4f, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07, 0x57, 0x41, 0x52, 0x4e, 0x49, 0x4e, 0x47,
+	0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x12, 0x09, 0x0a,
+	0x05, 0x46, 0x41, 0x54, 0x41, 0x4c, 0x10, 0x03, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74,
+	0x79, 0x32, 0x63, 0x0a, 0x0a, 0x4c, 0x6f, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
+	0x26, 0x0a, 0x03, 0x4c, 0x6f, 0x67, 0x12, 0x0f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c,
+	0x6f, 0x67, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+	0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00, 0x12, 0x2d, 0x0a, 0x05, 0x45, 0x78, 0x69, 0x73, 0x74,
+	0x12, 0x11, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x45, 0x78, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x0f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x6f, 0x67, 0x4d,
+	0x6f, 0x64, 0x65, 0x6c, 0x22, 0x00, 0x42, 0x20, 0x5a, 0x1e, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2f, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3b, 0x6c, 0x6f,
+	0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -358,20 +328,19 @@ func file_log_proto_rawDescGZIP() []byte {
 }
 
 var file_log_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_log_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_log_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_log_proto_goTypes = []interface{}{
-	(LogRequest_Level)(0), // 0: proto.LogRequest.Level
-	(*ExtRequest)(nil),    // 1: proto.ExtRequest
-	(*ExtResult)(nil),     // 2: proto.ExtResult
-	(*LogRequest)(nil),    // 3: proto.LogRequest
-	(*Empty)(nil),         // 4: proto.Empty
+	(LogModel_Level)(0), // 0: proto.LogModel.Level
+	(*ExtRequest)(nil),  // 1: proto.ExtRequest
+	(*LogModel)(nil),    // 2: proto.LogModel
+	(*Empty)(nil),       // 3: proto.Empty
 }
 var file_log_proto_depIdxs = []int32{
-	0, // 0: proto.LogRequest.log_level:type_name -> proto.LogRequest.Level
-	3, // 1: proto.LogService.Log:input_type -> proto.LogRequest
+	0, // 0: proto.LogModel.log_level:type_name -> proto.LogModel.Level
+	2, // 1: proto.LogService.Log:input_type -> proto.LogModel
 	1, // 2: proto.LogService.Exist:input_type -> proto.ExtRequest
-	4, // 3: proto.LogService.Log:output_type -> proto.Empty
-	2, // 4: proto.LogService.Exist:output_type -> proto.ExtResult
+	3, // 3: proto.LogService.Log:output_type -> proto.Empty
+	2, // 4: proto.LogService.Exist:output_type -> proto.LogModel
 	3, // [3:5] is the sub-list for method output_type
 	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -398,7 +367,7 @@ func file_log_proto_init() {
 			}
 		}
 		file_log_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ExtResult); i {
+			switch v := v.(*LogModel); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -410,18 +379,6 @@ func file_log_proto_init() {
 			}
 		}
 		file_log_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LogRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_log_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Empty); i {
 			case 0:
 				return &v.state
@@ -440,7 +397,7 @@ func file_log_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_log_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   4,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -467,8 +424,8 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LogServiceClient interface {
-	Log(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*Empty, error)
-	Exist(ctx context.Context, in *ExtRequest, opts ...grpc.CallOption) (*ExtResult, error)
+	Log(ctx context.Context, in *LogModel, opts ...grpc.CallOption) (*Empty, error)
+	Exist(ctx context.Context, in *ExtRequest, opts ...grpc.CallOption) (*LogModel, error)
 }
 
 type logServiceClient struct {
@@ -479,7 +436,7 @@ func NewLogServiceClient(cc grpc.ClientConnInterface) LogServiceClient {
 	return &logServiceClient{cc}
 }
 
-func (c *logServiceClient) Log(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *logServiceClient) Log(ctx context.Context, in *LogModel, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/proto.LogService/Log", in, out, opts...)
 	if err != nil {
@@ -488,8 +445,8 @@ func (c *logServiceClient) Log(ctx context.Context, in *LogRequest, opts ...grpc
 	return out, nil
 }
 
-func (c *logServiceClient) Exist(ctx context.Context, in *ExtRequest, opts ...grpc.CallOption) (*ExtResult, error) {
-	out := new(ExtResult)
+func (c *logServiceClient) Exist(ctx context.Context, in *ExtRequest, opts ...grpc.CallOption) (*LogModel, error) {
+	out := new(LogModel)
 	err := c.cc.Invoke(ctx, "/proto.LogService/Exist", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -499,18 +456,18 @@ func (c *logServiceClient) Exist(ctx context.Context, in *ExtRequest, opts ...gr
 
 // LogServiceServer is the server API for LogService service.
 type LogServiceServer interface {
-	Log(context.Context, *LogRequest) (*Empty, error)
-	Exist(context.Context, *ExtRequest) (*ExtResult, error)
+	Log(context.Context, *LogModel) (*Empty, error)
+	Exist(context.Context, *ExtRequest) (*LogModel, error)
 }
 
 // UnimplementedLogServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedLogServiceServer struct {
 }
 
-func (*UnimplementedLogServiceServer) Log(context.Context, *LogRequest) (*Empty, error) {
+func (*UnimplementedLogServiceServer) Log(context.Context, *LogModel) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Log not implemented")
 }
-func (*UnimplementedLogServiceServer) Exist(context.Context, *ExtRequest) (*ExtResult, error) {
+func (*UnimplementedLogServiceServer) Exist(context.Context, *ExtRequest) (*LogModel, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Exist not implemented")
 }
 
@@ -519,7 +476,7 @@ func RegisterLogServiceServer(s *grpc.Server, srv LogServiceServer) {
 }
 
 func _LogService_Log_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LogRequest)
+	in := new(LogModel)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -531,7 +488,7 @@ func _LogService_Log_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/proto.LogService/Log",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LogServiceServer).Log(ctx, req.(*LogRequest))
+		return srv.(LogServiceServer).Log(ctx, req.(*LogModel))
 	}
 	return interceptor(ctx, in, info, handler)
 }
