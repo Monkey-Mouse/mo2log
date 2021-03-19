@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+
+service LogService {
+    rpc Search(LogRequest) returns (Empty) {}
+}
+message LogRequest {
+    bytes operator = 1;
+    int32 operation = 2;
+    bytes operation_target = 3;
+    enum Level{
+        INFO = 0;
+        WARNING = 1;
+        ERROR = 2;
+        FATAL = 3;
+    }
+    Level log_level = 4;
+    string extra_message = 5;
+}
+message Empty {
+}
+// 指定 go 的包路径及包名
+option go_package="/service/logservice;logservice";
+
