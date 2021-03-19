@@ -1,4 +1,4 @@
-module mo2log
+module github.com/Monkey-Mouse/mo2log
 
 go 1.15
 
