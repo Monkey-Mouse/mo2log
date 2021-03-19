@@ -1,4 +1,4 @@
-module main
+module mo2log
 
 go 1.15
 

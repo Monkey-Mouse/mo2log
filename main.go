@@ -1,10 +1,10 @@
-package main
+package mo2log
 
 import (
 	"context"
 	"log"
-	"main/helpers"
-	"main/service/logservice"
+	"mo2log/helpers"
+	"mo2log/service/logservice"
 	"net"
 	"os"
 	"time"
@@ -112,7 +112,7 @@ func (*server) GetUserNewMsgNum(ctx context.Context, uid *logservice.UserID) (nu
 	return
 }
 func main() {
-	lis, err := net.Listen("tcp", os.Getenv("LOG_PORT"))
+	lis, err := net.Listen("tcp", ":"+os.Getenv("LOG_PORT"))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
