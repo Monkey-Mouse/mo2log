@@ -4,6 +4,15 @@ package proto;
 
 service LogService {
     rpc Log(LogRequest) returns (Empty) {}
+    rpc Exist(ExtRequest) returns (ExtResult){}
+}
+message ExtRequest {
+    bytes operator = 1;
+    int32 operation = 2;
+    bytes operation_target = 3;
+}
+message ExtResult {
+    bool is_exist = 1;
 }
 message LogRequest {
     bytes operator = 1;

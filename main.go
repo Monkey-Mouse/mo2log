@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -52,7 +53,25 @@ func (*server) Log(ctx context.Context, req *logservice.LogRequest) (emp *logser
 		CreateTime:        time.Now(),
 		UpdateTime:        time.Now(),
 	}
-	col.InsertOne(context.TODO(), model)
+	col.InsertOne(ctx, model)
+	return
+}
+func (*server) Exist(ctx context.Context,
+	req *logservice.ExtRequest) (ext *logservice.ExtResult, err error) {
+	e := col.FindOne(ctx, bson.M{
+		"operator_id":         req.Operator,
+		"operation":           req.Operation,
+		"operation_target_id": req.OperationTarget}).Err()
+	ext.IsExist = true
+	if e != nil {
+		// ErrNoDocuments means that the filter did not match any documents in the collection
+		if e == mongo.ErrNoDocuments {
+			ext.IsExist = false
+			return
+		}
+		err = e
+	}
+
 	return
 }
 
