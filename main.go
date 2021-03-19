@@ -3,11 +3,12 @@ package mo2log
 import (
 	"context"
 	"log"
-	"mo2log/helpers"
-	"mo2log/service/logservice"
 	"net"
 	"os"
 	"time"
+
+	"github.com/Monkey-Mouse/mo2log/helpers"
+	"github.com/Monkey-Mouse/mo2log/service/logservice"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
