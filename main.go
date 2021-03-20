@@ -101,7 +101,7 @@ func (*server) GetUserMsgs(ctx context.Context, req *logservice.ListRequest) (ar
 }
 func (*server) GetUserNewMsgNum(ctx context.Context, uid *logservice.UserID) (num *logservice.Num, err error) {
 	num = &logservice.Num{}
-	num.Num, err = col.CountDocuments(ctx, bson.M{"operation_target_owner_id": uid.UserId})
+	num.Num, err = col.CountDocuments(ctx, bson.M{"operation_target_owner_id": helpers.BytesToMongoID(uid.UserId)})
 	return
 }
 func main() {

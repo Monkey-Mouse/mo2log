@@ -17,7 +17,7 @@ message Num {
     int64 num = 1;
 }
 message UserID {
-    int32 user_id = 1;
+    bytes user_id = 1;
 }
 message ListRequest {
     bytes user_id = 1;
