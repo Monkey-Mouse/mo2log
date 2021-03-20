@@ -78,30 +78,33 @@ func (*server) Exist(ctx context.Context,
 
 func (*server) GetUserMsgs(ctx context.Context, req *logservice.ListRequest) (arr *logservice.LogArray, err error) {
 	arr = &logservice.LogArray{}
-	cur, err := col.Find(ctx, bson.M{"operation_target_owner_id": req.UserId},
+	id := helpers.BytesToMongoID(req.UserId)
+	cur, err := col.Find(ctx, bson.M{"operation_target_owner_id": id},
 		options.Find().SetSkip(int64(req.Page)*int64(req.Pagesize)).SetLimit(int64(req.Pagesize)).SetSort(bson.M{"update_time": -1}))
-	col.UpdateMany(ctx, bson.M{"operation_target_owner_id": req.UserId}, bson.D{{"$set", bson.M{"processed": true}}})
+	col.UpdateMany(ctx, bson.M{"operation_target_owner_id": id}, bson.D{{"$set", bson.M{"processed": true}}})
 	if err != nil {
 		return nil, err
 	}
 	log := &logmodel.LogModel{}
 	logs := make([]*logservice.LogModel, 0, req.Pagesize)
 	for {
+		if !cur.Next(ctx) {
+			break
+		}
 		err = cur.Decode(log)
 		if err != nil {
 			return nil, err
 		}
 		logs = append(logs, model2Proto(log))
-		if !cur.TryNext(ctx) {
-			break
-		}
 	}
 	arr.Logs = logs
 	return
 }
 func (*server) GetUserNewMsgNum(ctx context.Context, uid *logservice.UserID) (num *logservice.Num, err error) {
 	num = &logservice.Num{}
-	num.Num, err = col.CountDocuments(ctx, bson.M{"operation_target_owner_id": helpers.BytesToMongoID(uid.UserId)})
+	num.Num, err = col.CountDocuments(ctx, bson.M{
+		"operation_target_owner_id": helpers.BytesToMongoID(uid.UserId),
+		"processed":                 false})
 	return
 }
 func main() {
