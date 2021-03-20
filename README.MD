@@ -22,5 +22,5 @@ registry.cn-hangzhou.aliyuncs.com/mo2/mo2log:latest
 ```
 
 ## TODO
-- [ ] 添加index
+- [x] 添加index
 - [ ] 完善文档

@@ -29,6 +29,16 @@ func init() {
 	}
 	db := client.Database(os.Getenv("MO2_DATABASE"))
 	col = db.Collection(os.Getenv("LOG_COL"))
+	col.Indexes().CreateMany(context.TODO(), []mongo.IndexModel{
+		{Keys: bson.M{"processed": 1}},
+		{Keys: bson.M{"operation_target_owner_id": 1}},
+		{Keys: bson.M{"operator_id": 1}},
+		{Keys: bson.M{"operation": 1}},
+		{Keys: bson.M{"log_level": 1}},
+		{Keys: bson.M{"create_time": -1}},
+		{Keys: bson.M{"update_time": -1}},
+		{Keys: bson.M{"operation_target_id": -1}},
+	})
 }
 
 type server struct {
