@@ -16,5 +16,5 @@ type LogModel struct {
 	CreateTime             time.Time          `bson:"create_time,omitempty" json:"create_time,omitempty"`
 	UpdateTime             time.Time          `bson:"update_time,omitempty" json:"update_time,omitempty"`
 	OperationTargetOwnerID primitive.ObjectID `bson:"operation_target_owner_id,omitempty" json:"operation_target_owner_id,omitempty"`
-	Processed              bool               `bson:"processed,omitempty" json:"processed,omitempty"`
+	Processed              bool               `bson:"processed" json:"processed,omitempty"`
 }
