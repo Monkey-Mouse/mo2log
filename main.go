@@ -70,6 +70,9 @@ func model2Proto(log *logmodel.LogModel) *logservice.LogModel {
 		UpdateTime:   log.UpdateTime.UnixNano(),
 		Processed:    log.Processed,
 	}
+	proto.Operator = make([]byte, 12)
+	proto.OperationTarget = make([]byte, 12)
+	proto.OperationTargetOwner = make([]byte, 12)
 	// 确保log之后id被重新写入（比如mongodb的decode）的时候不会改变proto的值
 	copy(proto.Operator, log.OperatorID[:])
 	copy(proto.OperationTarget, log.OperationTargetID[:])
