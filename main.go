@@ -62,17 +62,19 @@ func (*server) Log(ctx context.Context, req *logservice.LogModel) (emp *logservi
 	return
 }
 func model2Proto(log *logmodel.LogModel) *logservice.LogModel {
-	return &logservice.LogModel{
-		Operator:             log.OperatorID[:],
-		Operation:            log.Operation,
-		OperationTarget:      log.OperationTargetID[:],
-		LogLevel:             logservice.LogModel_Level(log.LogLevel),
-		ExtraMessage:         log.ExtraMessage,
-		OperationTargetOwner: log.OperationTargetOwnerID[:],
-		CreateTime:           log.CreateTime.UnixNano(),
-		UpdateTime:           log.UpdateTime.UnixNano(),
-		Processed:            log.Processed,
+	proto := &logservice.LogModel{
+		Operation:    log.Operation,
+		LogLevel:     logservice.LogModel_Level(log.LogLevel),
+		ExtraMessage: log.ExtraMessage,
+		CreateTime:   log.CreateTime.UnixNano(),
+		UpdateTime:   log.UpdateTime.UnixNano(),
+		Processed:    log.Processed,
 	}
+	// 确保log之后id被重新写入（比如mongodb的decode）的时候不会改变proto的值
+	copy(proto.Operator, log.OperatorID[:])
+	copy(proto.OperationTarget, log.OperationTargetID[:])
+	copy(proto.OperationTargetOwner, log.OperationTargetOwnerID[:])
+	return proto
 }
 func (*server) Exist(ctx context.Context,
 	req *logservice.ExtRequest) (model *logservice.LogModel, err error) {
