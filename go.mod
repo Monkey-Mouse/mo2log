@@ -1,25 +1,17 @@
 module github.com/Monkey-Mouse/mo2log
 
-go 1.15
+go 1.16
 
 require (
-	github.com/DataDog/zstd v1.4.8 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/go-stack/stack v1.8.0 // indirect
-	github.com/golang/snappy v0.0.1 // indirect
-	github.com/kr/pretty v0.1.0 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
-	github.com/stretchr/testify v1.6.1 // indirect
-	github.com/tidwall/pretty v1.0.0 // indirect
-	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
-	github.com/xdg/stringprep v0.0.0-20180714160509-73f8eece6fdc // indirect
-	go.mongodb.org/mongo-driver v1.2.1
-	golang.org/x/crypto v0.0.0-20210317152858-513c2a44f670 // indirect
-	golang.org/x/net v0.0.0-20210316092652-d523dce5a7f4 // indirect
-	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
-	golang.org/x/text v0.3.5 // indirect
-	google.golang.org/genproto v0.0.0-20210318145829-90b20ab00860 // indirect
-	google.golang.org/grpc v1.27.0
+	github.com/golang/snappy v0.0.3 // indirect
+	github.com/stretchr/testify v1.7.0 // indirect
+	github.com/tidwall/pretty v1.1.0 // indirect
+	go.mongodb.org/mongo-driver v1.5.1
+	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
+	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4 // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/text v0.3.6 // indirect
+	google.golang.org/genproto v0.0.0-20210406143921-e86de6bf7a46 // indirect
+	google.golang.org/grpc v1.36.1
 	google.golang.org/protobuf v1.26.0
-	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )
