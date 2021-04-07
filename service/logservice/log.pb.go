@@ -541,7 +541,7 @@ var file_log_proto_rawDesc = []byte{
 	0x65, 0x76, 0x65, 0x6c, 0x12, 0x08, 0x0a, 0x04, 0x49, 0x4e, 0x46, 0x4f, 0x10, 0x00, 0x12, 0x0b,
 	0x0a, 0x07, 0x57, 0x41, 0x52, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x45,
 	0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x46, 0x41, 0x54, 0x41, 0x4c, 0x10,
-	0x03, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xc8, 0x01, 0x0a, 0x0a, 0x4c,
+	0x03, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xec, 0x01, 0x0a, 0x0a, 0x4c,
 	0x6f, 0x67, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x26, 0x0a, 0x03, 0x4c, 0x6f, 0x67,
 	0x12, 0x0f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x6f, 0x67, 0x4d, 0x6f, 0x64, 0x65,
 	0x6c, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22,
@@ -554,9 +554,12 @@ var file_log_proto_rawDesc = []byte{
 	0x72, 0x72, 0x61, 0x79, 0x22, 0x00, 0x12, 0x2d, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65,
 	0x72, 0x4e, 0x65, 0x77, 0x4d, 0x73, 0x67, 0x4e, 0x75, 0x6d, 0x12, 0x0d, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x0a, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x2e, 0x4e, 0x75, 0x6d, 0x42, 0x20, 0x5a, 0x1e, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2f, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3b, 0x6c, 0x6f, 0x67,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x2e, 0x4e, 0x75, 0x6d, 0x12, 0x22, 0x0a, 0x05, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x0d,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x1a, 0x0a, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4e, 0x75, 0x6d, 0x42, 0x20, 0x5a, 0x1e, 0x2f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x3b, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -590,12 +593,14 @@ var file_log_proto_depIdxs = []int32{
 	1, // 3: proto.LogService.Exist:input_type -> proto.ExtRequest
 	4, // 4: proto.LogService.GetUserMsgs:input_type -> proto.ListRequest
 	3, // 5: proto.LogService.GetUserNewMsgNum:input_type -> proto.UserID
-	7, // 6: proto.LogService.Log:output_type -> proto.Empty
-	6, // 7: proto.LogService.Exist:output_type -> proto.LogModel
-	5, // 8: proto.LogService.GetUserMsgs:output_type -> proto.LogArray
-	2, // 9: proto.LogService.GetUserNewMsgNum:output_type -> proto.Num
-	6, // [6:10] is the sub-list for method output_type
-	2, // [2:6] is the sub-list for method input_type
+	3, // 6: proto.LogService.Count:input_type -> proto.UserID
+	7, // 7: proto.LogService.Log:output_type -> proto.Empty
+	6, // 8: proto.LogService.Exist:output_type -> proto.LogModel
+	5, // 9: proto.LogService.GetUserMsgs:output_type -> proto.LogArray
+	2, // 10: proto.LogService.GetUserNewMsgNum:output_type -> proto.Num
+	2, // 11: proto.LogService.Count:output_type -> proto.Num
+	7, // [7:12] is the sub-list for method output_type
+	2, // [2:7] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name
@@ -729,6 +734,7 @@ type LogServiceClient interface {
 	Exist(ctx context.Context, in *ExtRequest, opts ...grpc.CallOption) (*LogModel, error)
 	GetUserMsgs(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*LogArray, error)
 	GetUserNewMsgNum(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Num, error)
+	Count(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Num, error)
 }
 
 type logServiceClient struct {
@@ -775,12 +781,22 @@ func (c *logServiceClient) GetUserNewMsgNum(ctx context.Context, in *UserID, opt
 	return out, nil
 }
 
+func (c *logServiceClient) Count(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Num, error) {
+	out := new(Num)
+	err := c.cc.Invoke(ctx, "/proto.LogService/Count", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LogServiceServer is the server API for LogService service.
 type LogServiceServer interface {
 	Log(context.Context, *LogModel) (*Empty, error)
 	Exist(context.Context, *ExtRequest) (*LogModel, error)
 	GetUserMsgs(context.Context, *ListRequest) (*LogArray, error)
 	GetUserNewMsgNum(context.Context, *UserID) (*Num, error)
+	Count(context.Context, *UserID) (*Num, error)
 }
 
 // UnimplementedLogServiceServer can be embedded to have forward compatible implementations.
@@ -798,6 +814,9 @@ func (*UnimplementedLogServiceServer) GetUserMsgs(context.Context, *ListRequest)
 }
 func (*UnimplementedLogServiceServer) GetUserNewMsgNum(context.Context, *UserID) (*Num, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserNewMsgNum not implemented")
+}
+func (*UnimplementedLogServiceServer) Count(context.Context, *UserID) (*Num, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Count not implemented")
 }
 
 func RegisterLogServiceServer(s *grpc.Server, srv LogServiceServer) {
@@ -876,6 +895,24 @@ func _LogService_GetUserNewMsgNum_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LogService_Count_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LogServiceServer).Count(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.LogService/Count",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LogServiceServer).Count(ctx, req.(*UserID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _LogService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.LogService",
 	HandlerType: (*LogServiceServer)(nil),
@@ -895,6 +932,10 @@ var _LogService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserNewMsgNum",
 			Handler:    _LogService_GetUserNewMsgNum_Handler,
+		},
+		{
+			MethodName: "Count",
+			Handler:    _LogService_Count_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
