@@ -84,11 +84,10 @@ func (*server) Exist(ctx context.Context,
 	req *logservice.ExtRequest) (model *logservice.LogModel, err error) {
 	m := &logmodel.LogModel{}
 	err = col.FindOne(ctx, bson.M{
-		"operator_id":         req.Operator,
+		"operator_id":         helpers.BytesToMongoID(req.Operator),
 		"operation":           req.Operation,
-		"operation_target_id": req.OperationTarget}).Decode(m)
+		"operation_target_id": helpers.BytesToMongoID(req.OperationTarget)}).Decode(m)
 	model = model2Proto(m)
-
 	return
 }
 
@@ -160,7 +159,8 @@ func (*server) CountQuery(ctx context.Context, q *logservice.Query) (num *logser
 	num.Num, err = col.CountDocuments(ctx, query)
 	return
 }
-func (*server) Delete(ctx context.Context, q *logservice.Query) (num *logservice.Empty, err error) {
+func (*server) Delete(ctx context.Context, q *logservice.Query) (emp *logservice.Empty, err error) {
+	emp = &logservice.Empty{}
 	query, err := processQuery(q)
 	if err != nil {
 		return nil, err
