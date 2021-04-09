@@ -9,6 +9,7 @@ service LogService {
     rpc GetUserNewMsgNum (UserID) returns (Num);
     rpc Count (UserID) returns (Num);
     rpc CountQuery (Query) returns (Num);
+    rpc Delete (Query) returns (Empty);
 }
 message ExtRequest {
     bytes operator = 1;

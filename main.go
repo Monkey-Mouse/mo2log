@@ -136,11 +136,36 @@ func (*server) Count(ctx context.Context, u *logservice.UserID) (num *logservice
 	})
 	return
 }
+func processQuery(q *logservice.Query) (query bson.D, err error) {
+	query = bson.D{}
+	json.Unmarshal(q.Query, &query)
+	for i, v := range query {
+
+		if v.Key[len(v.Key)-2:] == "id" {
+			id, err := primitive.ObjectIDFromHex(v.Value.(string))
+			if err != nil {
+				return nil, err
+			}
+			query[i].Value = id
+		}
+	}
+	return
+}
 func (*server) CountQuery(ctx context.Context, q *logservice.Query) (num *logservice.Num, err error) {
 	num = &logservice.Num{}
-	query := &bson.D{}
-	json.Unmarshal(q.Query, query)
+	query, err := processQuery(q)
+	if err != nil {
+		return nil, err
+	}
 	num.Num, err = col.CountDocuments(ctx, query)
+	return
+}
+func (*server) Delete(ctx context.Context, q *logservice.Query) (num *logservice.Empty, err error) {
+	query, err := processQuery(q)
+	if err != nil {
+		return nil, err
+	}
+	_, err = col.DeleteOne(ctx, query)
 	return
 }
 func main() {

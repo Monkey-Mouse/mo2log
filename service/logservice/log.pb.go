@@ -590,7 +590,7 @@ var file_log_proto_rawDesc = []byte{
 	0x76, 0x65, 0x6c, 0x12, 0x08, 0x0a, 0x04, 0x49, 0x4e, 0x46, 0x4f, 0x10, 0x00, 0x12, 0x0b, 0x0a,
 	0x07, 0x57, 0x41, 0x52, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x45, 0x52,
 	0x52, 0x4f, 0x52, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x46, 0x41, 0x54, 0x41, 0x4c, 0x10, 0x03,
-	0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0x94, 0x02, 0x0a, 0x0a, 0x4c, 0x6f,
+	0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xba, 0x02, 0x0a, 0x0a, 0x4c, 0x6f,
 	0x67, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x26, 0x0a, 0x03, 0x4c, 0x6f, 0x67, 0x12,
 	0x0f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x6f, 0x67, 0x4d, 0x6f, 0x64, 0x65, 0x6c,
 	0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00,
@@ -608,9 +608,11 @@ var file_log_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4e, 0x75, 0x6d, 0x12, 0x26, 0x0a, 0x0a, 0x43, 0x6f, 0x75, 0x6e,
 	0x74, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x51,
 	0x75, 0x65, 0x72, 0x79, 0x1a, 0x0a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4e, 0x75, 0x6d,
-	0x42, 0x20, 0x5a, 0x1e, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x6c, 0x6f, 0x67,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3b, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x24, 0x0a, 0x06, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x0c, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x42, 0x20, 0x5a, 0x1e, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2f, 0x6c, 0x6f, 0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x3b, 0x6c, 0x6f,
+	0x67, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -647,14 +649,16 @@ var file_log_proto_depIdxs = []int32{
 	4, // 5: proto.LogService.GetUserNewMsgNum:input_type -> proto.UserID
 	4, // 6: proto.LogService.Count:input_type -> proto.UserID
 	2, // 7: proto.LogService.CountQuery:input_type -> proto.Query
-	8, // 8: proto.LogService.Log:output_type -> proto.Empty
-	7, // 9: proto.LogService.Exist:output_type -> proto.LogModel
-	6, // 10: proto.LogService.GetUserMsgs:output_type -> proto.LogArray
-	3, // 11: proto.LogService.GetUserNewMsgNum:output_type -> proto.Num
-	3, // 12: proto.LogService.Count:output_type -> proto.Num
-	3, // 13: proto.LogService.CountQuery:output_type -> proto.Num
-	8, // [8:14] is the sub-list for method output_type
-	2, // [2:8] is the sub-list for method input_type
+	2, // 8: proto.LogService.Delete:input_type -> proto.Query
+	8, // 9: proto.LogService.Log:output_type -> proto.Empty
+	7, // 10: proto.LogService.Exist:output_type -> proto.LogModel
+	6, // 11: proto.LogService.GetUserMsgs:output_type -> proto.LogArray
+	3, // 12: proto.LogService.GetUserNewMsgNum:output_type -> proto.Num
+	3, // 13: proto.LogService.Count:output_type -> proto.Num
+	3, // 14: proto.LogService.CountQuery:output_type -> proto.Num
+	8, // 15: proto.LogService.Delete:output_type -> proto.Empty
+	9, // [9:16] is the sub-list for method output_type
+	2, // [2:9] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name
@@ -802,6 +806,7 @@ type LogServiceClient interface {
 	GetUserNewMsgNum(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Num, error)
 	Count(ctx context.Context, in *UserID, opts ...grpc.CallOption) (*Num, error)
 	CountQuery(ctx context.Context, in *Query, opts ...grpc.CallOption) (*Num, error)
+	Delete(ctx context.Context, in *Query, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type logServiceClient struct {
@@ -866,6 +871,15 @@ func (c *logServiceClient) CountQuery(ctx context.Context, in *Query, opts ...gr
 	return out, nil
 }
 
+func (c *logServiceClient) Delete(ctx context.Context, in *Query, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/proto.LogService/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LogServiceServer is the server API for LogService service.
 type LogServiceServer interface {
 	Log(context.Context, *LogModel) (*Empty, error)
@@ -874,6 +888,7 @@ type LogServiceServer interface {
 	GetUserNewMsgNum(context.Context, *UserID) (*Num, error)
 	Count(context.Context, *UserID) (*Num, error)
 	CountQuery(context.Context, *Query) (*Num, error)
+	Delete(context.Context, *Query) (*Empty, error)
 }
 
 // UnimplementedLogServiceServer can be embedded to have forward compatible implementations.
@@ -897,6 +912,9 @@ func (*UnimplementedLogServiceServer) Count(context.Context, *UserID) (*Num, err
 }
 func (*UnimplementedLogServiceServer) CountQuery(context.Context, *Query) (*Num, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountQuery not implemented")
+}
+func (*UnimplementedLogServiceServer) Delete(context.Context, *Query) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 
 func RegisterLogServiceServer(s *grpc.Server, srv LogServiceServer) {
@@ -1011,6 +1029,24 @@ func _LogService_CountQuery_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LogService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Query)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LogServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.LogService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LogServiceServer).Delete(ctx, req.(*Query))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _LogService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.LogService",
 	HandlerType: (*LogServiceServer)(nil),
@@ -1038,6 +1074,10 @@ var _LogService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CountQuery",
 			Handler:    _LogService_CountQuery_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _LogService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
