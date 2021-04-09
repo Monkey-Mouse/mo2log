@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"log"
 	"net"
 	"os"
@@ -133,6 +134,13 @@ func (*server) Count(ctx context.Context, u *logservice.UserID) (num *logservice
 		},
 		"operator_id": helpers.BytesToMongoID(u.UserId),
 	})
+	return
+}
+func (*server) CountQuery(ctx context.Context, q *logservice.Query) (num *logservice.Num, err error) {
+	num = &logservice.Num{}
+	query := &bson.D{}
+	json.Unmarshal(q.Query, query)
+	num.Num, err = col.CountDocuments(ctx, query)
 	return
 }
 func main() {

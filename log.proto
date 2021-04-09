@@ -8,11 +8,15 @@ service LogService {
     rpc GetUserMsgs(ListRequest) returns (LogArray){}
     rpc GetUserNewMsgNum (UserID) returns (Num);
     rpc Count (UserID) returns (Num);
+    rpc CountQuery (Query) returns (Num);
 }
 message ExtRequest {
     bytes operator = 1;
     int32 operation = 2;
     bytes operation_target = 3;
+}
+message Query{
+    bytes query = 1;
 }
 message Num {
     int64 num = 1;
