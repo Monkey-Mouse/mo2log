@@ -86,7 +86,9 @@ func (*server) Exist(ctx context.Context,
 	err = col.FindOne(ctx, bson.M{
 		"operator_id":         helpers.BytesToMongoID(req.Operator),
 		"operation":           req.Operation,
-		"operation_target_id": helpers.BytesToMongoID(req.OperationTarget)}).Decode(m)
+		"operation_target_id": helpers.BytesToMongoID(req.OperationTarget)}, &options.FindOneOptions{
+		Sort: bson.D{{"update_time", -1}},
+	}).Decode(m)
 	model = model2Proto(m)
 	return
 }
